@@ -2,45 +2,198 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>SaveLog - 청년/학생 소비 습관 분석 & 절약 가이드</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>알뜰로그 - 청년/학생 소비 습관 분석 & 절약 가이드</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #0b0f19;
+            color: #f8fafc;
+            font-family: 'Apple SD Gothic Neo', sans-serif;
+            margin: 0;
+            padding: 12px;
+        }
+        #sl-root {
+            width: 100%;
+            max-width: 430px;
+            margin: 0 auto;
+            background-color: #0f172a;
+            padding: 16px;
+            border-radius: 20px;
+            border: 1px solid #334155;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.55);
+        }
+        .sl-header {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding-bottom: 12px;
+            margin-bottom: 14px;
+            border-bottom: 1px solid #334155;
+        }
+        .sl-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .sl-logo {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background-color: #4f46e5;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        .sl-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .sl-chip-btn {
+            padding: 6px 10px;
+            border-radius: 16px;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .sl-streak-badge {
+            background: rgba(245, 158, 11, 0.15);
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            color: #fbbf24;
+            padding: 6px 10px;
+            border-radius: 16px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        .sl-card {
+            background: #1e293b;
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid #334155;
+            margin-bottom: 14px;
+        }
+        .sl-stats-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+        .sl-stat-row {
+            background: #1e293b;
+            padding: 12px 14px;
+            border-radius: 12px;
+            border: 1px solid #334155;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .sl-badge-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            text-align: center;
+        }
+        .sl-badge-btn {
+            background: #0f172a;
+            padding: 10px 6px;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            font-family: inherit;
+        }
+        .sl-field {
+            margin-bottom: 10px;
+        }
+        .sl-label {
+            display: block;
+            font-size: 11px;
+            color: #94a3b8;
+            margin-bottom: 4px;
+        }
+        .sl-control {
+            width: 100%;
+            background: #0f172a;
+            border: 1px solid #475569;
+            color: #ffffff;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 13px;
+        }
+        .sl-save-btn {
+            width: 100%;
+            background: #10b981;
+            color: #ffffff;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 13px;
+            cursor: pointer;
+        }
+        #sl-list {
+            max-height: 220px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-size: 11px;
+            color: #94a3b8;
+        }
+    </style>
 </head>
-<body style="background-color: #0b0f19; margin: 0; padding: 20px;">
+<body>
 
-<div id="sl-root" style="background-color: #0f172a; color: #f8fafc; font-family: 'Apple SD Gothic Neo', sans-serif; padding: 20px; border-radius: 16px; border: 1px solid #334155; max-width: 850px; margin: 0 auto; box-shadow: 0 10px 25px rgba(0,0,0,0.5);">
-    
-    <!-- 앱의 로고와 주요 기능(물가, 이미지 저장, 공유 등) 버튼들을 상단에 배치하는 영역 -->
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #334155; padding-bottom: 12px;">
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <div style="background-color: #4f46e5; color: white; width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 18px;">S</div>
+<div id="sl-root">
+    <!-- 헤더 영역 -->
+    <div class="sl-header">
+        <div class="sl-brand">
+            <div class="sl-logo">알</div>
             <div>
-                <h2 style="margin: 0; font-size: 18px; color: white;">SaveLog</h2>
+                <h2 style="margin: 0; font-size: 18px; color: #ffffff;">알뜰로그</h2>
                 <div style="font-size: 11px; color: #94a3b8;">청년/학생 소비 습관 분석 & 절약 가이드</div>
             </div>
         </div>
-        <div style="display: flex; align-items: center; gap: 6px;">
-            <button onclick="slToggle('sl-price-card')" style="background: rgba(56,189,248,0.15); border: 1px solid rgba(56,189,248,0.4); color: #38bdf8; padding: 5px 10px; border-radius: 20px; font-size: 11px; font-weight: bold; cursor: pointer;">🛒 주요 물가</button>
-            <button onclick="slSaveImage()" style="background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.4); color: #34d399; padding: 5px 10px; border-radius: 20px; font-size: 11px; font-weight: bold; cursor: pointer;">📸 이미지 저장</button>
-            <button onclick="slShare()" style="background: rgba(129,140,248,0.15); border: 1px solid rgba(129,140,248,0.4); color: #818cf8; padding: 5px 10px; border-radius: 20px; font-size: 11px; font-weight: bold; cursor: pointer;">🌐 공유하기</button>
-            <div style="background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.4); color: #fbbf24; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: bold;">🔥 <span id="sl-streak">5</span>일 챌린지</div>
+        <div class="sl-actions">
+            <button type="button" onclick="slToggle('sl-price-card')" class="sl-chip-btn" style="background: rgba(56,189,248,0.15); border: 1px solid rgba(56,189,248,0.4); color: #38bdf8;">🛒 주요 물가</button>
+            <button type="button" onclick="slSaveImage()" class="sl-chip-btn" style="background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.4); color: #34d399;">📸 이미지 저장</button>
+            <button type="button" onclick="slShare()" class="sl-chip-btn" style="background: rgba(129,140,248,0.15); border: 1px solid rgba(129,140,248,0.4); color: #818cf8;">🌐 공유하기</button>
+            <div class="sl-streak-badge">🔥 <span id="sl-streak">5</span>일 챌린지</div>
         </div>
     </div>
 
-    <!-- 오늘의 주요 장바구니 평균 물가 정보를 보여주는 숨김/펼침 카드 영역 -->
-    <div id="sl-price-card" style="display: none; background: #1e293b; padding: 14px; border-radius: 12px; border: 1px solid #38bdf8; margin-bottom: 20px; font-size: 11px; color: #94a3b8;">
-        📈 <b>오늘의 장바구니 평균 물가:</b> 🍎 사과(2,800원) | 🥚 계란(6,800원) | 🍜 라면(4,300원) | 🥛 우유(3,050원)
+    <!-- 주요 물가 카드 -->
+    <div id="sl-price-card" style="display: none; background: #1e293b; padding: 12px; border-radius: 12px; border: 1px solid #38bdf8; margin-bottom: 14px; font-size: 11px; color: #94a3b8; line-height: 1.5;">
+        📈 <b>오늘의 장바구니 평균 물가:</b><br>
+        🍎 사과(2,800원) · 🥚 계란(6,800원) · 🍜 라면(4,300원) · 🥛 우유(3,050원)
     </div>
 
-    <!-- 이번 달 총 지출, 남은 예산, 예산 사용률을 한눈에 보여주는 통계 영역 -->
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px;">
-        <div style="background: #1e293b; padding: 14px; border-radius: 12px; border: 1px solid #334155;"><div style="font-size: 11px; color: #94a3b8;">이번 달 총 지출</div><div id="sl-tot" style="font-size: 20px; font-weight: bold; margin-top: 4px; color: white;">0 원</div></div>
-        <div style="background: #1e293b; padding: 14px; border-radius: 12px; border: 1px solid #334155;"><div style="font-size: 11px; color: #94a3b8;">남은 예산 (30만 원)</div><div id="sl-rem" style="font-size: 20px; font-weight: bold; margin-top: 4px; color: #34d399;">300,000 원</div></div>
-        <div style="background: #1e293b; padding: 14px; border-radius: 12px; border: 1px solid #334155;"><div style="font-size: 11px; color: #94a3b8;">예산 사용률</div><div id="sl-prog" style="font-size: 20px; font-weight: bold; margin-top: 4px; color: #818cf8;">0%</div></div>
+    <!-- 예산 요약 영역 -->
+    <div class="sl-stats-list">
+        <div class="sl-stat-row">
+            <span style="font-size: 12px; color: #94a3b8;">이번 달 총 지출</span>
+            <span id="sl-tot" style="font-size: 17px; font-weight: bold; color: #ffffff;">0 원</span>
+        </div>
+        <div class="sl-stat-row">
+            <span style="font-size: 12px; color: #94a3b8;">남은 예산 (30만 원)</span>
+            <span id="sl-rem" style="font-size: 17px; font-weight: bold; color: #34d399;">300,000 원</span>
+        </div>
+        <div class="sl-stat-row">
+            <span style="font-size: 12px; color: #94a3b8;">예산 사용률</span>
+            <span id="sl-prog" style="font-size: 17px; font-weight: bold; color: #818cf8;">0%</span>
+        </div>
     </div>
 
-    <!-- 사용자의 지출 감정 비율을 퍼센트 바와 색상으로 시각화하여 보여주는 영역 -->
-    <div style="background: #1e293b; padding: 14px; border-radius: 12px; border: 1px solid #334155; margin-bottom: 20px;">
-        <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 8px;">
+    <!-- 소비 감정 분석 리포트 -->
+    <div class="sl-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 6px; font-size: 12px; margin-bottom: 8px;">
             <span style="font-weight: bold; color: #e2e8f0;">📊 소비 감정 분석 리포트</span>
             <span id="sl-emo-txt" style="color: #94a3b8; font-size: 11px;">지출 내역이 없습니다.</span>
         </div>
@@ -50,60 +203,73 @@
             <div id="bar-r" style="width: 0%; background: #f59e0b;"></div>
             <div id="bar-w" style="width: 0%; background: #ef4444;"></div>
         </div>
-        <div style="display: flex; gap: 12px; font-size: 10px; color: #94a3b8; margin-top: 6px;">
+        <div style="display: flex; justify-content: space-between; font-size: 10px; color: #94a3b8; margin-top: 6px;">
             <span>🟢 행복</span><span>🔵 평범</span><span>🟡 후회</span><span>🔴 낭비</span>
         </div>
     </div>
 
-    <!-- 절약 횟수와 예산 방어 상태에 따라 뱃지 잠금 해제 여부를 보여주는 영역 -->
-    <div style="background: #1e293b; padding: 14px; border-radius: 12px; border: 1px solid #334155; margin-bottom: 20px;">
+    <!-- 절약 성취 뱃지 -->
+    <div class="sl-card">
         <div style="font-size: 12px; font-weight: bold; color: #e2e8f0; margin-bottom: 8px;">🎯 나의 절약 성취 뱃지</div>
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center;">
-            <div style="background: #0f172a; border: 1px solid #10b981; padding: 10px; border-radius: 8px;"><div id="b1" style="font-size: 18px;">🔒</div><div style="font-size: 11px; color: white; margin-top: 2px;">절약의 시작</div></div>
-            <div style="background: #0f172a; border: 1px solid #6366f1; padding: 10px; border-radius: 8px;"><div id="b2" style="font-size: 18px;">🛡️</div><div style="font-size: 11px; color: white; margin-top: 2px;">예산 방어</div></div>
-            <div style="background: #0f172a; border: 1px solid #f59e0b; padding: 10px; border-radius: 8px;"><div id="b3" style="font-size: 18px;">👑</div><div style="font-size: 11px; color: white; margin-top: 2px;">5일 스트릭</div></div>
+        <div class="sl-badge-grid">
+            <button type="button" onclick="slClickBadge(1)" class="sl-badge-btn" style="border: 1px solid #10b981;">
+                <div id="b1" style="font-size: 18px;">🔒</div>
+                <div style="font-size: 11px; color: #ffffff; margin-top: 2px;">절약의 시작</div>
+            </button>
+            <button type="button" onclick="slClickBadge(2)" class="sl-badge-btn" style="border: 1px solid #6366f1;">
+                <div id="b2" style="font-size: 18px;">🛡️</div>
+                <div style="font-size: 11px; color: #ffffff; margin-top: 2px;">예산 방어</div>
+            </button>
+            <button type="button" onclick="slClickBadge(3)" class="sl-badge-btn" style="border: 1px solid #f59e0b;">
+                <div id="b3" style="font-size: 18px;">👑</div>
+                <div style="font-size: 11px; color: #ffffff; margin-top: 2px;">5일 스트릭</div>
+            </button>
         </div>
     </div>
 
-    <!-- 금액, 카테고리, 감정, 메모를 입력받아 새로운 지출 기록을 저장하는 입력 영역 -->A
-    <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 16px;">
-        <div style="background: #1e293b; padding: 16px; border-radius: 12px; border: 1px solid #334155;">
-            <div style="font-size: 13px; font-weight: bold; margin-bottom: 12px; color: white;">➕ 새 지출 추가</div>
-            
-            <div style="margin-bottom: 10px;">
-                <label style="display: block; font-size: 11px; color: #94a3b8; margin-bottom: 4px;">금액 (원)</label>
-                <input type="number" id="in-amt" placeholder="예: 5000" style="width: 100%; background: #0f172a; border: 1px solid #475569; color: white; padding: 8px; border-radius: 6px; box-sizing: border-box; font-size: 12px;">
-            </div>
+    <!-- 새 지출 추가 -->
+    <div class="sl-card">
+        <div style="font-size: 13px; font-weight: bold; margin-bottom: 10px; color: #ffffff;">➕ 새 지출 추가</div>
 
-            <div style="margin-bottom: 10px;">
-                <label style="display: block; font-size: 11px; color: #94a3b8; margin-bottom: 4px;">카테고리</label>
-                <select id="in-cat" style="width: 100%; background: #0f172a; border: 1px solid #475569; color: white; padding: 8px; border-radius: 6px; box-sizing: border-box; font-size: 12px;">
-                    <option value="식비">식비</option><option value="카페">카페</option><option value="교통">교통</option><option value="쇼핑">쇼핑</option><option value="취미">취미</option>
-                </select>
-            </div>
-
-            <div style="margin-bottom: 10px;">
-                <label style="display: block; font-size: 11px; color: #94a3b8; margin-bottom: 4px;">소비 감정</label>
-                <select id="in-emo" style="width: 100%; background: #0f172a; border: 1px solid #475569; color: white; padding: 8px; border-radius: 6px; box-sizing: border-box; font-size: 12px;">
-                    <option value="😊">😊 행복 (가치 있는 소비)</option>
-                    <option value="😐">😐 평범 (일상 지출)</option>
-                    <option value="😭">😭 후회 (아쉬운 지출)</option>
-                    <option value="💸">💸 낭비 (홧김 지출)</option>
-                </select>
-            </div>
-
-            <div style="margin-bottom: 12px;">
-                <label style="display: block; font-size: 11px; color: #94a3b8; margin-bottom: 4px;">메모</label>
-                <input type="text" id="in-memo" placeholder="예: 김밥" style="width: 100%; background: #0f172a; border: 1px solid #475569; color: white; padding: 8px; border-radius: 6px; box-sizing: border-box; font-size: 12px;">
-            </div>
-
-            <button onclick="slAdd()" style="width: 100%; background: #10b981; color: white; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 12px;">지출 기록 저장</button>
+        <div class="sl-field">
+            <label for="in-amt" class="sl-label">금액 (원)</label>
+            <input type="number" id="in-amt" placeholder="예: 5000" class="sl-control">
         </div>
 
-        <!-- 저장된 지출 내역들을 리스트 형태로 실시간으로 보여주고 삭제할 수 있는 영역 -->
-        <div style="background: #1e293b; padding: 16px; border-radius: 12px; border: 1px solid #334155; display: flex; flex-direction: column;">
-            <div style="font-size: 13px; font-weight: bold; margin-bottom: 12px; color: white;">📜 최근 지출 타임라인</div>
-            <div id="sl-list" style="max-height: 220px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; font-size: 11px; color: #94a3b8; text-align: center; padding-top: 20px;">지출 내역이 없습니다. 새 지출을 추가해 보세요!</div>
+        <div class="sl-field">
+            <label for="in-cat" class="sl-label">카테고리</label>
+            <select id="in-cat" class="sl-control">
+                <option value="식비">식비</option>
+                <option value="카페">카페</option>
+                <option value="교통">교통</option>
+                <option value="쇼핑">쇼핑</option>
+                <option value="취미">취미</option>
+            </select>
+        </div>
+
+        <div class="sl-field">
+            <label for="in-emo" class="sl-label">소비 감정</label>
+            <select id="in-emo" class="sl-control">
+                <option value="😊">😊 행복 (가치 있는 소비)</option>
+                <option value="😐">😐 평범 (일상 지출)</option>
+                <option value="😭">😭 후회 (아쉬운 지출)</option>
+                <option value="💸">💸 낭비 (홧김 지출)</option>
+            </select>
+        </div>
+
+        <div class="sl-field">
+            <label for="in-memo" class="sl-label">메모</label>
+            <input type="text" id="in-memo" placeholder="예: 김밥" class="sl-control">
+        </div>
+
+        <button type="button" onclick="slAdd()" class="sl-save-btn">지출 기록 저장</button>
+    </div>
+
+    <!-- 최근 지출 타임라인 -->
+    <div class="sl-card" style="margin-bottom: 0;">
+        <div style="font-size: 13px; font-weight: bold; margin-bottom: 10px; color: #ffffff;">📜 최근 지출 타임라인</div>
+        <div id="sl-list">
+            <div style="color: #94a3b8; text-align: center; padding: 16px 0;">지출 내역이 없습니다. 새 지출을 추가해 보세요!</div>
         </div>
     </div>
 </div>
@@ -118,31 +284,59 @@
     };
 
     window.slSaveImage = function() {
-        html2canvas(document.getElementById('sl-root'), { backgroundColor: '#0f172a', scale: 2 }).then(canvas => {
+        html2canvas(document.getElementById('sl-root'), { backgroundColor: '#0f172a', scale: 2 }).then(function(canvas) {
             var link = document.createElement('a');
-            link.download = 'SaveLog_리포트.png';
+            link.download = '알뜰로그_리포트.png';
             link.href = canvas.toDataURL('image/png');
             link.click();
         });
     };
 
     window.slShare = function() {
-        var text = '[SaveLog] 청년 소비 습관 분석 & 절약 가이드 함께해요!';
+        var text = '[알뜰로그] 청년 소비 습관 분석 & 절약 가이드 함께해요!';
         if (navigator.share) {
-            navigator.share({ title: 'SaveLog', text: text, url: window.location.href }).catch(() => {});
-        } else {
+            navigator.share({ title: '알뜰로그', text: text, url: window.location.href }).catch(function() {});
+        } else if (navigator.clipboard) {
             navigator.clipboard.writeText(text + ' ' + window.location.href);
             alert('클립보드에 링크가 복사되었습니다!');
         }
     };
 
+    window.slClickBadge = function(badgeId) {
+        var tot = state.items.reduce(function(a, c) { return a + c.amt; }, 0);
+        var rem = state.budget - tot;
+
+        if (badgeId === 1) {
+            if (state.items.length >= 3) {
+                alert('🎉 [절약의 시작] 뱃지 달성! 지출 기록 3개 이상을 완료했습니다.');
+            } else {
+                alert('🔒 [절약의 시작] 지출 기록 3개 이상 필요 (현재 ' + state.items.length + '개)');
+            }
+        } else if (badgeId === 2) {
+            if (rem >= 0) {
+                alert('🎉 [예산 방어] 뱃지 달성! 남은 예산: ' + rem.toLocaleString() + '원');
+            } else {
+                alert('🔒 [예산 방어] 예산을 초과했습니다.');
+            }
+        } else if (badgeId === 3) {
+            if (state.streak >= 5) {
+                alert('🎉 [5일 스트릭] 뱃지 달성! 현재 ' + state.streak + '일 연속 진행 중입니다.');
+            } else {
+                alert('🔒 [5일 스트릭] 5일 연속 기록 조건 미달성 (현재 ' + state.streak + '일)');
+            }
+        }
+    };
+
     window.slAdd = function() {
-        var amt = parseInt(document.getElementById('in-amt').value);
+        var amt = parseInt(document.getElementById('in-amt').value, 10);
         var cat = document.getElementById('in-cat').value;
         var emo = document.getElementById('in-emo').value;
         var memo = document.getElementById('in-memo').value.trim() || cat;
 
-        if (isNaN(amt) || amt <= 0) { alert('금액을 정확히 입력해주세요!'); return; }
+        if (isNaN(amt) || amt <= 0) {
+            alert('금액을 정확히 입력해주세요!');
+            return;
+        }
 
         state.items.unshift({ id: Date.now(), amt: amt, cat: cat, emo: emo, memo: memo });
         document.getElementById('in-amt').value = '';
@@ -151,12 +345,12 @@
     };
 
     window.slDel = function(id) {
-        state.items = state.items.filter(x => x.id !== id);
+        state.items = state.items.filter(function(x) { return x.id !== id; });
         render();
     };
 
     function render() {
-        var tot = state.items.reduce((a, c) => a + c.amt, 0);
+        var tot = state.items.reduce(function(a, c) { return a + c.amt; }, 0);
         var rem = state.budget - tot;
         var prog = Math.min(100, Math.round((tot / state.budget) * 100));
 
@@ -168,7 +362,7 @@
 
         var totalC = state.items.length;
         var cMap = { '😊': 0, '😐': 0, '😭': 0, '💸': 0 };
-        state.items.forEach(x => cMap[x.emo] = (cMap[x.emo] || 0) + 1);
+        state.items.forEach(function(x) { cMap[x.emo] = (cMap[x.emo] || 0) + 1; });
 
         var hp = totalC ? Math.round((cMap['😊'] / totalC) * 100) : 0;
         var np = totalC ? Math.round((cMap['😐'] / totalC) * 100) : 0;
@@ -179,30 +373,30 @@
         document.getElementById('bar-n').style.width = np + '%';
         document.getElementById('bar-r').style.width = rp + '%';
         document.getElementById('bar-w').style.width = wp + '%';
-        document.getElementById('sl-emo-txt').innerText = totalC === 0 ? '지출 내역이 없습니다.' : `행복 ${hp}% | 후회/낭비 ${rp+wp}%`;
+        document.getElementById('sl-emo-txt').innerText = totalC === 0 ? '지출 내역이 없습니다.' : '행복 ' + hp + '% | 후회/낭비 ' + (rp + wp) + '%';
 
         document.getElementById('b1').innerText = state.items.length >= 3 ? '🌱' : '🔒';
         document.getElementById('b2').innerText = rem >= 0 ? '🛡️' : '🔒';
 
         var listEl = document.getElementById('sl-list');
         if (state.items.length === 0) {
-            listEl.innerHTML = '<div style="color: #94a3b8; text-align: center; padding-top: 20px;">지출 내역이 없습니다. 새 지출을 추가해 보세요!</div>';
+            listEl.innerHTML = '<div style="color: #94a3b8; text-align: center; padding: 16px 0;">지출 내역이 없습니다. 새 지출을 추가해 보세요!</div>';
         } else {
-            listEl.innerHTML = state.items.map(i => 
-                `<div style="display:flex; justify-content:space-between; align-items:center; background:#0f172a; padding:8px 12px; border-radius:8px; border:1px solid #334155;">
-                    <div style="display:flex; align-items:center; gap:8px;">
-                        <span style="font-size:16px;">${i.emo}</span>
-                        <div style="text-align:left;">
-                            <div style="font-size:12px; font-weight:bold; color:white;">${i.memo}</div>
-                            <div style="font-size:10px; color:#94a3b8;">${i.cat}</div>
-                        </div>
-                    </div>
-                    <div style="display:flex; align-items:center; gap:10px;">
-                        <span style="font-size:12px; font-weight:bold; color:#f87171;">-${i.amt.toLocaleString()}원</span>
-                        <button onclick="slDel(${i.id})" style="background:none; border:none; color:#64748b; cursor:pointer; font-size:12px;">✕</button>
-                    </div>
-                </div>`
-            ).join('');
+            listEl.innerHTML = state.items.map(function(i) {
+                return '<div style="display:flex; justify-content:space-between; align-items:center; background:#0f172a; padding:8px 12px; border-radius:8px; border:1px solid #334155;">' +
+                    '<div style="display:flex; align-items:center; gap:8px;">' +
+                        '<span style="font-size:16px;">' + i.emo + '</span>' +
+                        '<div style="text-align:left;">' +
+                            '<div style="font-size:12px; font-weight:bold; color:#ffffff;">' + i.memo + '</div>' +
+                            '<div style="font-size:10px; color:#94a3b8;">' + i.cat + '</div>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div style="display:flex; align-items:center; gap:10px;">' +
+                        '<span style="font-size:12px; font-weight:bold; color:#f87171;">-' + i.amt.toLocaleString() + '원</span>' +
+                        '<button type="button" onclick="slDel(' + i.id + ')" style="background:none; border:none; color:#64748b; cursor:pointer; font-size:12px;">✕</button>' +
+                    '</div>' +
+                '</div>';
+            }).join('');
         }
     }
 })();
